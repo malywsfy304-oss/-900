@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أضرار التدخين وتأثيره على صحة الإنسان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #8b0000, #b22222);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(90deg, #8b0000, #b22222);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /><circle cx="50" cy="50" r="30" stroke="white" stroke-width="1" fill="none" /></svg>');
+            opacity: 0.1;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-top: 15px;
+            color: #e0e0e0;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .simulation-section {
+            flex: 1;
+        }
+
+        .explanation-section {
+            flex: 1;
+            background: #fff5f5;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .simulation-scene {
+            height: 500px;
+            background: linear-gradient(to bottom, #f0f8ff 0%, #f0f8ff 70%, #e6e6fa 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* الجسم البشري */
+        .human-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 400px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><circle cx="50" cy="30" r="20" fill="%23ffcccb"/><rect x="35" y="50" width="30" height="100" fill="%23ffcccb"/><rect x="25" y="150" width="15" height="50" fill="%23ffcccb"/><rect x="60" y="150" width="15" height="50" fill="%23ffcccb"/></svg>') no-repeat center bottom;
+            background-size: contain;
+        }
+
+        .lungs {
+            position: absolute;
+            top: 100px;
+            width: 80px;
+            height: 120px;
+            background: rgba(173, 216, 230, 0.8);
+            border-radius: 40% 40% 60% 60%;
+            transition: all 2s ease;
+        }
+
+        .left-lung {
+            left: 35px;
+        }
+
+        .right-lung {
+            right: 35px;
+        }
+
+        .heart {
+            position: absolute;
+            top: 130px;
+            left: 85px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 0, 0, 0.7);
+            border-radius: 50%;
+            transition: all 2s ease;
+        }
+
+        /* السجائر والدخان */
+        .cigarette {
+            position: absolute;
+            width: 80px;
+            height: 8px;
+            background: linear-gradient(90deg, #8b4513, #f5f5dc);
+            border-radius: 4px;
+        }
+
+        .cigarette-1 {
+            top: 50px;
+            left: 100px;
+            transform: rotate(30deg);
+        }
+
+        .cigarette-2 {
+            top: 80px;
+            right: 100px;
+            transform: rotate(-30deg);
+        }
+
+        .smoke {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #a9a9a9;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* الجسيمات الضارة */
+        .harmful-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #8b0000;
+            border-radius: 50%;
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        /* المؤثرات البصرية */
+        .health-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .health-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 100%;
+            transition: width 2s ease;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #8b0000, #b22222);
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(2px);
+        }
+
+        .info-panel {
+            background: #ffe6e6;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border-right: 5px solid #b22222;
+        }
+
+        .info-title {
+            font-size: 1.6rem;
+            color: #8b0000;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 2px solid #b22222;
+            padding-bottom: 10px;
+        }
+
+        .info-content {
+            font-size: 1.2rem;
+            line-height: 1.9;
+        }
+
+        .info-content h3 {
+            color: #8b0000;
+            margin: 20px 0 10px;
+        }
+
+        .info-content ul {
+            padding-right: 20px;
+            margin: 15px 0;
+        }
+
+        .info-content li {
+            margin-bottom: 10px;
+        }
+
+        .progress-container {
+            height: 15px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8b0000, #b22222);
+            width: 0%;
+            transition: width 0.8s ease;
+            border-radius: 10px;
+        }
+
+        .stage-indicator {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #8b0000;
+            margin: 15px 0;
+            height: 40px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: #8b0000;
+            color: white;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /><circle cx="50" cy="50" r="30" stroke="white" stroke-width="1" fill="none" /></svg>');
+            opacity: 0.1;
+        }
+
+        .teacher-tribute {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .copyright {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        /* تأثيرات الحركة */
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
+        }
+
+        @keyframes damage {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(0.9); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 900px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.2rem; }
+            .simulation-scene { height: 400px; }
+            .controls { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>أضرار التدخين وتأثيره على صحة الإنسان</h1>
+        <p class="subtitle">محاكاة علمية توضح تأثير التدخين على الجسم باستخدام المنهج العلمي</p>
+    </header>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="stage-indicator" id="stageIndicator">
+        المرحلة ١: استنشاق دخان السجائر
+    </div>
+
+    <div class="content-wrapper">
+        <div class="simulation-section">
+            <div class="simulation-scene">
+                <!-- الجسم البشري -->
+                <div class="human-body">
+                    <div class="lungs left-lung" id="leftLung"></div>
+                    <div class="lungs right-lung" id="rightLung"></div>
+                    <div class="heart" id="heart"></div>
+                </div>
+                
+                <!-- السجائر -->
+                <div class="cigarette cigarette-1">
+                    <div class="smoke" id="smoke1"></div>
+                </div>
+                <div class="cigarette cigarette-2">
+                    <div class="smoke" id="smoke2"></div>
+                </div>
+                
+                <!-- الجسيمات الضارة -->
+                <div class="harmful-particle" id="particle1">N</div>
+                <div class="harmful-particle" id="particle2">T</div>
+                <div class="harmful-particle" id="particle3">C</div>
+                <div class="harmful-particle" id="particle4">T</div>
+                <div class="harmful-particle" id="particle5">CO</div>
+                
+                <!-- مؤشر الصحة -->
+                <div class="health-indicator">
+                    <div class="health-bar" id="healthBar"></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button onclick="previousStage()"><i class="fas fa-arrow-right"></i> السابق</button>
+                <button onclick="startSimulation()"><i class="fas fa-play"></i> بدء المحاكاة</button>
+                <button onclick="nextStage()">التالي <i class="fas fa-arrow-left"></i></button>
+                <button onclick="resetSimulation()"><i class="fas fa-redo"></i> إعادة الضبط</button>
+            </div>
+        </div>
+        
+        <div class="explanation-section">
+            <div class="info-title">الشرح العلمي المفصل</div>
+            <div class="info-content">
+                <div id="explanationText">
+                    <h3>مكونات دخان السجائر</h3>
+                    <p>يحتوي دخان السجائر على أكثر من 7000 مادة كيميائية، منها 250 مادة ضارة و69 مادة مسرطنة. أهم هذه المواد:</p>
+                    <ul>
+                        <li><strong>النيكوتين (N):</strong> مادة تسبب الإدمان وتؤثر على الجهاز العصبي</li>
+                        <li><strong>القطران (T):</strong> مادة لزجة تترسب في الرئتين وتسبب السرطان</li>
+                        <li><strong>أول أكسيد الكربون (CO):</strong> غاز سام يمنع حمل الأكسجين في الدم</li>
+                        <li><strong>مواد كيميائية سامة (C):</strong> مثل الفورمالدهيد والزرنيخ والأمونيا</li>
+                    </ul>
+                    
+                    <h3>كيف يدخل الدخان إلى الجسم؟</h3>
+                    <p>عند استنشاق دخان السجائر، تدخل هذه المواد الضارة عبر:</p>
+                    <ol>
+                        <li>الفم والأنف إلى القصبة الهوائية</li>
+                        <li>ثم إلى الرئتين حيث تمتص إلى الدم</li>
+                        <li>ثم تنتقل عبر الدم إلى جميع أجزاء الجسم</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <div class="info-title">الخطوات العلمية لدراسة أضرار التدخين</div>
+        <div class="info-content">
+            <ol>
+                <li><strong>الملاحظة:</strong> لاحظ الأطباء منذ القرن الثامن عشر ارتباطًا بين التدخين وأمراض الرئة والقلب. في الخمسينات، أظهرت الدراسات الوبائية زيادة معدلات سرطان الرئة بين المدخنين.</li>
+                
+                <li><strong>طرح السؤال:</strong> ما هي المواد في السجائر التي تسبب الأمراض؟ وكيف تؤثر على أعضاء الجسم المختلفة؟</li>
+                
+                <li><strong>الفرضية:</strong> افترض العلماء أن المواد الكيميائية في دخان السجائر (مثل النيكوتين والقطران) هي المسؤولة عن الأضرار الصحية.</li>
+                
+                <li><strong>التجربة:</strong> أجريت تجارب على الحيوانات والخلايا البشرية أثبتت أن المواد الكيميائية في الدخان تسبب:
+                    <ul>
+                        <li>تلف الحمض النووي والطفرات الجينية</li>
+                        <li>التهاب الشعب الهوائية وتدمير الأهداب التنفسية</li>
+                        <li>تصلب الشرايين وزيادة خطر الجلطات</li>
+                    </ul>
+                </li>
+                
+                <li><strong>التحليل:</strong> حللت الدراسات الوبائية بيانات الملايين من الناس وأظهرت أن:
+                    <ul>
+                        <li>التدخين يسبب 90% من حالات سرطان الرئة</li>
+                        <li>المدخنون معرضون لأمراض القلب أكثر بمرتين إلى أربع مرات</li>
+                        <li>التدخين يقلل متوسط العمر المتوقع بمقدار 10 سنوات على الأقل</li>
+                    </ul>
+                </li>
+                
+                <li><strong>الاستنتاج:</strong> أثبتت الأدلة القاطعة أن التدخين هو السبب الرئيسي للعديد من الأمراض والوفيات التي يمكن prevenها.</li>
+                
+                <li><strong>الحل:</strong> وضعت منظمة الصحة العالمية اتفاقية Framework Convention on Tobacco Control للحد من التدخين عبر:
+                    <ul>
+                        <li>رفع أسعار التبغ والضرائب عليه</li>
+                        <li>منع الإعلان عن التبغ</li>
+                        <li>إنشاء برامج المساعدة على الإقلاع عن التدخين</li>
+                        <li>حماية غير المدخنين من التعرض للدخان السلبي</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <div class="teacher-tribute">نشكر الأستاذ الفاضل <span class="highlight">يحيى أحمد مدخلي</span> على توجيهاته القيمة ودعمه المستمر وجهوده المتميزة في تعليمنا</div>
+        <div class="copyright">جميع الحقوق محفوظة &copy; 2025 - تصميم وتطوير الطالب محمد اليوسفي</div>
+    </footer>
+</div>
+
+<script>
+    // عناصر المحاكاة
+    const smokeElements = [document.getElementById('smoke1'), document.getElementById('smoke2')];
+    const particles = [document.getElementById('particle1'), document.getElementById('particle2'), 
+                      document.getElementById('particle3'), document.getElementById('particle4'), 
+                      document.getElementById('particle5')];
+    const leftLung = document.getElementById('leftLung');
+    const rightLung = document.getElementById('rightLung');
+    const heart = document.getElementById('heart');
+    const healthBar = document.getElementById('healthBar');
+    const progressBar = document.getElementById('progressBar');
+    const stageIndicator = document.getElementById('stageIndicator');
+    const explanationText = document.getElementById('explanationText');
+    
+    // نصوص الشرح لكل مرحلة
+    const stageExplanations = [
+        `<h3>المرحلة الأولى: استنشاق دخان السجائر</h3>
+        <p>عند إشعال سيجارة، ترتفع درجة حرارة التبغ إلى 900°مئوية، مما يؤدي إلى إنتاج دخان يحتوي على آلاف المواد الكيميائية.</p>
+        <p>عند استنشاق الدخان، تدخل هذه المواد إلى الجسم عبر الفم والأنف، ثم إلى القصبة الهوائية، وأخيرًا إلى الرئتين.</p>
+        <p>يصل النيكوتين إلى الدماغ خلال 10 ثوان فقط من الاستنشاق، مما يسبب إفراز الدوبامين والإحساس المؤقت بالمتعة.</p>`,
+
+        `<h3>المرحلة الثانية: وصول المواد الضارة إلى الرئتين</h3>
+        <p>في الرئتين، تمتص المواد الكيميائية الضارة إلى الدم عبر الحويصلات الهوائية التي توجد بها شبكة dense من الشعيرات الدموية.</p>
+        <p>القطران (وهو خليط من المواد الكيميائية) يترسب على جدران الحويصلات الهوائية، مما يعيق تبادل الغازات ويقلل كفاءة التنفس.</p>
+        <p>أول أكسيد الكربون يرتبط بالهيموجلوبين في خلايا الدم الحمراء بقوة تفوق ارتباط الأكسجين بـ 200 مرة، مما يقلل قدرة الدم على حمل الأكسجين.</p>`,
+
+        `<h3>المرحلة الثالثة: انتشار المواد الضارة في الجسم</h3>
+        <p>ينتقل النيكوتين والمواد الكيميائية الأخرى عبر الدم إلى جميع أجزاء الجسم، بما في ذلك:</p>
+        <ul>
+            <li><strong>الدماغ:</strong> النيكوتين يحفز إفراز الدوبامين مما يسبب الإدمان</li>
+            <li><strong>القلب:</strong> يزيد النيكوتين من معدل ضربات القلب وضغط الدم</li>
+            <li><strong>الأوعية الدموية:</strong> يسبب تصلب الشرايين ويزيد من خطر الجلطات</li>
+            <li><strong>الكلى والكبد:</strong> where يتم استقلاب وترشيح هذه المواد</li>
+        </ul>`,
+
+        `<h3>المرحلة الرابعة: التأثير على الجهاز التنفسي</h3>
+        <p>يسبب التدخين أضرارًا جسيمة للجهاز التنفسي:</p>
+        <ul>
+            <li>تدمير الأهداب التنفسية التي تنقي الهواء من الشوائب</li>
+            <li>التهاب مزمن في الشعب الهوائية (التهاب الشعب الهوائية المزمن)</li>
+            <li>تدمير جدران الحويصلات الهوائية (انتفاخ الرئة)</li>
+            <li>زيادة إفراز المخاط وصعوبة إزالته</li>
+            <li>تزيد نسبة الإصابة بسرطان الرئة among المدخنين بـ 25 مرة</li>
+        </ul>`,
+
+        `<h3>المرحلة الخامسة: التأثير على القلب والأوعية الدموية</h3>
+        <p>يؤثر التدخين سلبًا على صحة القلب والأوعية الدموية:</p>
+        <ul>
+            <li>يزيد من معدل ضربات القلب وضغط الدم</li>
+            <li>يقلل من كمية الأكسجين التي تصل إلى القلب</li>
+            <li>يضر ببطانة الأوعية الدموية ويسرع من تصلب الشرايين</li>
+            <li>يزيد من تخثر الدم وخطر الجلطات</li>
+            <li>يضاعف خطر الإصابة بأمراض القلب التاجية والسكتة الدماغية</li>
+        </ul>
+        <p>المدخنون معرضون للإصابة بأمراض القلب أكثر بمرتين إلى أربع مرات من غير المدخنين.</p>`,
+
+        `<h3>المرحلة السادسة: التأثير على أجهزة الجسم الأخرى</h3>
+        <p>لا يقتصر ضرر التدخين على الرئتين والقلب، بل يؤثر على جميع أجهزة الجسم:</p>
+      <ul>
+            <li><strong>الجهاز الهضمي:</strong> يزيد من خطر سرطان الفم والحلق والمريء والمعدة</li>
+            <li><strong>الجلد:</strong> يسبب شيخوخة مبكرة وتجاعيد واصفرار الجلد</li>
+            <li><strong>العظام:</strong> يزيد من خطر هشاشة العظام</li>
+            <li><strong>الجهاز التناسلي:</strong> يسبب العقم ومشاكل في الانتصاب لدى الرجال، ويقلل الخصوبة لدى النساء</li>
+            <li><strong>الفم والأسنان:</strong> يسبب اصفرار الأسنان وأمراض اللثة وسرطان الفم</li>
+        </ul>`,
+
+        `<h3>المرحلة السابعة: الحلول والوقاية</h3>
+        <p>يمكن الوقاية من أضرار التدخين عبر:</p>
+        <ul>
+            <li><strong>الإقلاع عن التدخين:</strong> الذي يؤدي إلى تحسن فوري في الصحة
+                <ul>
+                    <li>بعد 20 دقيقة: يعود ضغط الدم ومعدل النبض إلى طبيعتهما</li>
+                    <li>بعد 8 ساعات: ينخفض مستوى أول أكسيد الكربون في الدم</li>
+                    <li>بعد 24 ساعة: تقل احتمالية الإصابة بالأزمة القلبية</li>
+                    <li>بعد سنة: ينخفض خطر أمراض القلب التاجية إلى النصف</li>
+                    <li>بعد 10 سنوات: ينخفض خطر الوفاة بسرطان الرئة إلى النصف</li>
+                </ul>
+            </li>
+            <li><strong>العلاجات المساعدة:</strong> مثل علكة النيكوتين، اللاصقات، الأدوية</li>
+            <li><strong>العلاج السلوكي:</strong> ودعم المجموعات والمستشارين المتخصصين</li>
+            <li><strong>السياسات العامة:</strong> مثل زيادة الضرائب على التبغ، ومنع الإعلان عنه، وإنشاء أماكن خالية من التدخين</li>
+        </ul>`
+    ];
+    
+    // حالة المحاكاة
+    let simulationState = 0;
+    let isSimulationRunning = false;
+    
+    // بدء المحاكاة
+    function startSimulation() {
+        if (isSimulationRunning) return;
+        isSimulationRunning = true;
+        
+        simulationState = 1;
+        updateStage();
+        
+        // مرحلة 1: انبعاث الدخان من السجائر
+        smokeElements.forEach((smoke, index) => {
+            smoke.style.opacity = '0.8';
+            smoke.style.animation = `rise 3s ${index * 0.5}s infinite`;
+        });
+        
+        // الانتقال إلى المرحلة التالية بعد فترة
+        setTimeout(nextStage, 4000);
+    }
+    
+    function nextStage() {
+        if (!isSimulationRunning && simulationState > 0) return;
+        
+        simulationState++;
+        if (simulationState > 7) simulationState = 7;
+        
+        updateStage();
+        
+        // تنفيذ التأثيرات البصرية لكل مرحلة
+        switch(simulationState) {
+            case 2:
+                // وصول الجسيمات إلى الرئتين
+                particles.forEach((particle, index) => {
+                    particle.style.opacity = '1';
+                    particle.style.left = `${40 + (index * 20)}%`;
+                    particle.style.top = '150px';
+                    particle.style.animation = `rise 5s ${index * 0.3}s infinite`;
+                });
+                setTimeout(nextStage, 5000);
+                break;
+                
+            case 3:
+                // تغير لون الرئتين
+                leftLung.style.background = 'rgba(165, 42, 42, 0.6)';
+                rightLung.style.background = 'rgba(165, 42, 42, 0.6)';
+                setTimeout(nextStage, 4000);
+                break;
+                
+            case 4:
+                // تأثر القلب
+                heart.style.animation = 'pulse 1s infinite';
+                healthBar.style.width = '70%';
+                setTimeout(nextStage, 4000);
+                break;
+                
+            case 5:
+                // تدهور الصحة
+                leftLung.style.transform = 'scale(0.9)';
+                rightLung.style.transform = 'scale(0.9)';
+                healthBar.style.width = '40%';
+                healthBar.style.background = 'linear-gradient(90deg, #ff9800, #ff5722)';
+                setTimeout(nextStage, 4000);
+                break;
+                
+            case 6:
+                // تدهور أكبر في الصحة
+                healthBar.style.width = '20%';
+                healthBar.style.background = 'linear-gradient(90deg, #f44336, #d32f2f)';
+                setTimeout(nextStage, 4000);
+                break;
+                
+            case 7:
+                // عرض الحلول
+                healthBar.style.width = '80%';
+                healthBar.style.background = 'linear-gradient(90deg, #4caf50, #8bc34a)';
+                leftLung.style.background = 'rgba(144, 238, 144, 0.7)';
+                rightLung.style.background = 'rgba(144, 238, 144, 0.7)';
+                heart.style.animation = 'none';
+                break;
+        }
+    }
+    
+    function previousStage() {
+        if (simulationState <= 1) return;
+        
+        simulationState--;
+        updateStage();
+        resetSimulationEffects();
+        
+        // إعادة تطبيق التأثيرات حسب المرحلة الحالية
+        if (simulationState >= 2) {
+            particles.forEach((particle, index) => {
+                particle.style.opacity = '1';
+                particle.style.animation = `rise 5s ${index * 0.3}s infinite`;
+            });
+        }
+        
+        if (simulationState >= 3) {
+            leftLung.style.background = 'rgba(165, 42, 42, 0.6)';
+            rightLung.style.background = 'rgba(165, 42, 42, 0.6)';
+        }
+        
+        if (simulationState >= 4) {
+            heart.style.animation = 'pulse 1s infinite';
+            healthBar.style.width = '70%';
+        }
+        
+        if (simulationState >= 5) {
+            leftLung.style.transform = 'scale(0.9)';
+            rightLung.style.transform = 'scale(0.9)';
+            healthBar.style.width = '40%';
+            healthBar.style.background = 'linear-gradient(90deg, #ff9800, #ff5722)';
+        }
+        
+        if (simulationState >= 6) {
+            healthBar.style.width = '20%';
+            healthBar.style.background = 'linear-gradient(90deg, #f44336, #d32f2f)';
+        }
+    }
+    
+    function updateStage() {
+        progressBar.style.width = `${(simulationState / 7) * 100}%`;
+        
+        // تحديث نص المؤشر
+        const stageTitles = [
+            "المرحلة ١: استنشاق دخان السجائر",
+            "المرحلة ٢: وصول المواد الضارة إلى الرئتين",
+            "المرحلة ٣: انتشار المواد الضارة في الجسم",
+            "المرحلة ٤: التأثير على الجهاز التنفسي",
+            "المرحلة ٥: التأثير على القلب والأوعية الدموية",
+            "المرحلة ٦: التأثير على أجهزة الجسم الأخرى",
+            "المرحلة ٧: الحلول والوقاية"
+        ];
+        
+        if (simulationState > 0 && simulationState <= 7) {
+            stageIndicator.textContent = stageTitles[simulationState - 1];
+            explanationText.innerHTML = stageExplanations[simulationState - 1];
+        }
+    }
+    
+    function resetSimulationEffects() {
+        // إعادة تعيين الدخان
+        smokeElements.forEach(smoke => {
+            smoke.style.opacity = '0';
+            smoke.style.animation = 'none';
+        });
+        
+        // إعادة تعيين الجسيمات
+        particles.forEach(particle => {
+            if (simulationState < 2) {
+                particle.style.opacity = '0';
+            }
+            particle.style.animation = 'none';
+        });
+        
+        // إعادة تعيين الرئتين
+        if (simulationState < 3) {
+            leftLung.style.background = 'rgba(173, 216, 230, 0.8)';
+            rightLung.style.background = 'rgba(173, 216, 230, 0.8)';
+        }
+        
+        // إعادة تعيين القلب
+        if (simulationState < 4) {
+            heart.style.animation = 'none';
+        }
+        
+        // إعادة تعيين مؤشر الصحة
+        if (simulationState < 4) {
+            healthBar.style.width = '100%';
+            healthBar.style.background = 'linear-gradient(90deg, #4caf50, #8bc34a)';
+        }
+        
+        // إعادة تعيين حجم الرئتين
+        if (simulationState < 5) {
+            leftLung.style.transform = 'scale(1)';
+            rightLung.style.transform = 'scale(1)';
+        }
+    }
+    
+    // إعادة تعيين المحاكاة
+    function resetSimulation() {
+        simulationState = 0;
+        isSimulationRunning = false;
+        progressBar.style.width = '0%';
+        stageIndicator.textContent = 'المرحلة ١: استنشاق دخان السجائر';
+        explanationText.innerHTML = stageExplanations[0];
+        
+        // إعادة تعيين جميع العناصر
+        smokeElements.forEach(smoke => {
+            smoke.style.opacity = '0';
+            smoke.style.animation = 'none';
+        });
+        
+        particles.forEach(particle => {
+            particle.style.opacity = '0';
+            particle.style.animation = 'none';
+        });
+        
+        leftLung.style.background = 'rgba(173, 216, 230, 0.8)';
+        rightLung.style.background = 'rgba(173, 216, 230, 0.8)';
+        leftLung.style.transform = 'scale(1)';
+        rightLung.style.transform = 'scale(1)';
+        
+        heart.style.animation = 'none';
+        
+        healthBar.style.width = '100%';
+        healthBar.style.background = 'linear-gradient(90deg, #4caf50, #8bc34a)';
+    }
+    
+    // التهيئة الأولية
+    document.querySelectorAll('.harmful-particle').forEach(particle => {
+        particle.style.position = 'absolute';
+        particle.style.width = '12px';
+        particle.style.height = '12px';
+        particle.style.background = '#8b0000';
+        particle.style.borderRadius = '50%';
+        particle.style.opacity = '0';
+        particle.style.display = 'flex';
+        particle.style.justifyContent = 'center';
+        particle.style.alignItems = 'center';
+        particle.style.color = 'white';
+        particle.style.fontSize = '8px';
+        particle.style.fontWeight = 'bold';
+    });
+    
+    document.querySelectorAll('.smoke').forEach(smoke => {
+        smoke.style.position = 'absolute';
+        smoke.style.width = '15px';
+        smoke.style.height = '15px';
+        smoke.style.background = '#a9a9a9';
+        smoke.style.borderRadius = '50%';
+        smoke.style.opacity = '0';
+    });
+    
+    // عرض الشرح الأولي
+    explanationText.innerHTML = stageExplanations[0];
+</script>
+
+</body>
+</html>
